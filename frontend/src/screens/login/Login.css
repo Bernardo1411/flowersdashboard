@@ -1,0 +1,84 @@
+.login_div-conteiner {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-color: #FDFFF9;
+}
+
+.login_div-leftcontainer {
+    width: 50%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.login_div-rightcontainer {
+    width: 50%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-image: url('/public/assets/images/background_flowers.png');
+    background-size: cover;
+}
+
+.login_form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.login_div-input {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 332px;
+    height: 40px;
+    border: 1px solid #DEE8CA;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    padding: 20px 12px 20px 12px;
+    background-color: white;
+}
+
+.login_div-input:focus-within {
+    border-color: #1F5207;
+   }
+
+.login_input {
+    width: 100%;
+    height: 40px;
+    border: none;
+    margin-left: 8px;
+    outline: none;
+}
+
+input::placeholder {
+    color: #9DAD90;
+    font-size: 16px;
+    font-weight: 400;
+  }
+
+.button_div-login {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.p_form-login {
+    color: var(--BLACK, #1F211E);
+    font-family: Roboto;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}

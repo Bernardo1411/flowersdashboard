@@ -1,0 +1,47 @@
+.div-sideBar {
+    width: 248px;
+    height: calc(100vh - 64px);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding-top: 26px;
+    position: absolute;
+    left: 0;
+    z-index: 5;
+    margin-top: 64px;
+    background-color: #FFF;
+    filter: drop-shadow(0px 4px 20px rgba(170, 170, 170, 0.25));
+}
+
+.navlink-navitens {
+    text-decoration: none;
+    border-radius: 0 10px 10px 0;
+}
+
+.div_button-sideBar {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    width: 248px;
+    height: 40px;
+    color: #1F5207;
+    font-family: sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    border-radius: 0 10px 10px 0;
+    padding-left: 30px;
+}
+
+.div_button-sideBar:active {
+    background-color: #DEE8CA;
+    font-weight: bold;
+}
+
+.active {
+    background-color: #DEE8CA;
+    font-weight: bold;
+}

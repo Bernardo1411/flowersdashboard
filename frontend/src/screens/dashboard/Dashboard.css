@@ -1,0 +1,9 @@
+.div_dashboard-container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    background: #F8F8F8;
+}
