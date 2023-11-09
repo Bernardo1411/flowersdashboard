@@ -1,17 +1,85 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { toast } from 'react-toastify';
 
-// import Button from '../../../../components/Button/Button';
+import Button from '../../../../components/Button/Button';
+import CleanButton from '../../../../components/cleanButton/CleanButton';
+import Modal from '../../../../components/Modal/Modal';
+import userAPI from '../../../../API/userAPI';
+import FlowerSignUpForm from '../../../../components/flowerSignUpForm/FlowerSignUpForm';
 
 import './Stock.css';
 
 function Stock(props) {
   const { flowers } = props;
 
+  const [openModal, setOpenModal] = useState(false);
+  const [isEdit, setIsEdit] = useState(false);
+  const [flowerId, setFlowerId] = useState(false);
+  const [flowerInfo, setFlowerInfo] = useState({});
+
+  const handleSubmit = async (flowerData) => {
+    try {
+      // Call the API to add a new flower
+      await userAPI.addFlower(flowerData, localStorage.getItem('token'));
+
+      // Handle the response or any error here
+      toast.success('Cadastro realizado com sucesso!');
+    } catch (error) {
+      toast.error(error.response.data.error);
+    }
+  };
+
+  const editFlower = async (flowerData) => {
+    const flowerDataWithId = {
+      flowerId,
+      ...flowerData,
+    };
+
+    try {
+      await userAPI.editFlower(flowerDataWithId, localStorage.getItem('token'));
+      return toast.success('Edição realizada com sucesso!');
+    } catch (error) {
+      return toast.error(error.response.data.error);
+    }
+  };
+
   return (
     <div className="div_dashboard-stock">
+      <Modal
+        top="10%"
+        left="32%"
+        width="663px"
+        height="570px"
+        modalIsOpen={openModal}
+        closeModal={() => { setOpenModal(false); }}
+      >
+        <FlowerSignUpForm
+          isEdit={isEdit}
+          flowerInfo={flowerInfo}
+          handleSubmit={isEdit ? editFlower : handleSubmit}
+          closeModal={() => setOpenModal(false)}
+        />
+      </Modal>
       <header className="header_dashboard-stock">
         <h1>Estoque de flores</h1>
+        <Button
+          style={{
+            width: '114px', backgroundColor: '#6C9300', border: 'none', marginRight: '152px',
+          }}
+          onClick={() => {
+            setOpenModal(true);
+            setIsEdit(false);
+          }}
+        >
+          <div style={{
+            display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center',
+          }}
+          >
+            <img alt="add button" src="/assets/images/add_circle.png" style={{ width: '20px', marginRight: '8px' }} />
+            <p>Nova Flor</p>
+          </div>
+        </Button>
       </header>
       <div className="div_table-stock">
         <header>
@@ -25,10 +93,11 @@ function Stock(props) {
               <th>Descrição</th>
               <th>Preço</th>
               <th>Quantidade</th>
+              <th>Opções</th>
             </tr>
           </thead>
           <tbody>
-            {flowers.map((flower) => {
+            {flowers && flowers.length > 0 ? flowers.map((flower) => {
               const { _id } = flower;
               return (
                 <tr key={_id}>
@@ -37,9 +106,34 @@ function Stock(props) {
                   <td>{flower.description}</td>
                   <td>{flower.price}</td>
                   <td>{flower.quantity}</td>
+                  <td>
+                    <div>
+                      <CleanButton onClick={() => {}}>
+                        <img alt="add button" src="/assets/images/sell2.png" />
+                      </CleanButton>
+                      <CleanButton onClick={() => {
+                        setFlowerId(_id);
+                        setIsEdit(true);
+                        setOpenModal(true);
+                        setFlowerInfo({
+                          lote: flower.lote,
+                          category: flower.category,
+                          description: flower.description,
+                          price: flower.price,
+                          quantity: flower.quantity,
+                        });
+                      }}
+                      >
+                        <img alt="add button" src="/assets/images/edit.png" />
+                      </CleanButton>
+                      <CleanButton onClick={() => {}}>
+                        <img alt="add button" src="/assets/images/delete.png" />
+                      </CleanButton>
+                    </div>
+                  </td>
                 </tr>
               );
-            })}
+            }) : <p>Nenhuma flor cadastrada.</p>}
           </tbody>
         </table>
       </div>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import userAPI from '../../API/userAPI';
 
 import Topbar from '../../components/topbar/Topbar';
@@ -14,15 +15,23 @@ function Dashboard() {
   const [showSideBar, setShowSidebar] = useState(false);
 
   const fetchUsers = async () => {
-    const userData = await userAPI.getUser(localStorage.getItem('token'));
+    try {
+      const userData = await userAPI.getUser(localStorage.getItem('token'));
 
-    return userData.user;
+      return userData.user;
+    } catch (error) {
+      return toast.error(error.response.data.error);
+    }
   };
 
   const fetchFlowers = async () => {
-    const flowersData = await userAPI.getFlowers(localStorage.getItem('token'));
+    try {
+      const flowersData = await userAPI.getFlowers(localStorage.getItem('token'));
 
-    setFlowers(flowersData);
+      return setFlowers(flowersData);
+    } catch (error) {
+      return toast.error(error.response.data.error);
+    }
   };
 
   useEffect(() => {

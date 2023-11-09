@@ -50,10 +50,9 @@ const userAPI = {
     return response.data;
   },
 
-  editFlower: async (flowerId, flowerData, token) => {
+  editFlower: async (flowerData, token) => {
     const response = await axios.put(`${API_BASE_URL}/user/editflower`, flowerData, {
       headers: { Authorization: `Bearer ${token}` },
-      params: { flowerId }, // Send the flower ID as a query parameter
     });
 
     return response.data;

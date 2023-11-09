@@ -23,6 +23,10 @@ const flowerSchema = new Schema({
     type: Number,
     required: true,
   },
+  userId: {
+    type: mongoose.ObjectId,
+    required: true,
+  },
 });
 
 flowerSchema.methods.addUser = (flower) => {
@@ -32,12 +36,14 @@ flowerSchema.methods.addUser = (flower) => {
     description,
     price,
     quantity,
+    userId,
   } = flower;
   this.lote = lote;
   this.category = category;
   this.description = description;
   this.price = price;
   this.quantity = quantity;
+  this.userId = userId;
 
   return this.save();
 };

@@ -169,7 +169,7 @@ exports.signinUser = (req, res) => {
 // Controller related that access the database and
 // return a list of flowers
 exports.getFlowers = (req, res) => {
-  const { userId } = req.query;
+  const userId = req.body.user.userExists._id;
 
   return Flowers.find({ userId }).exec((err, user) => {
     const flowersArray = user.map((flower) => {

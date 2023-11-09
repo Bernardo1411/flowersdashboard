@@ -33,7 +33,7 @@ function Main(props) {
               </tr>
             </thead>
             <tbody>
-              {flowers.map((flower) => {
+              {flowers && flowers.length > 0 ? flowers.map((flower) => {
                 const { _id } = flower;
                 return (
                   <tr key={_id}>
@@ -44,7 +44,7 @@ function Main(props) {
                     <td>{flower.quantity}</td>
                   </tr>
                 );
-              })}
+              }) : <p>Nenhuma flor cadastrada.</p>}
             </tbody>
           </table>
         </div>
