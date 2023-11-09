@@ -7,6 +7,7 @@ import CleanButton from '../../../../components/cleanButton/CleanButton';
 import Modal from '../../../../components/Modal/Modal';
 import userAPI from '../../../../API/userAPI';
 import FlowerSignUpForm from '../../../../components/flowerSignUpForm/FlowerSignUpForm';
+import SellForm from '../../../../components/sellForm/SellForm';
 
 import './Stock.css';
 
@@ -14,6 +15,7 @@ function Stock(props) {
   const { flowers } = props;
 
   const [openModal, setOpenModal] = useState(false);
+  const [openModalSell, setOpenModalSell] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
   const [flowerId, setFlowerId] = useState(false);
   const [flowerInfo, setFlowerInfo] = useState({});
@@ -44,6 +46,20 @@ function Stock(props) {
     }
   };
 
+  const sellFlower = async (flowerData) => {
+    const flowerDataWithId = {
+      flowerId,
+      ...flowerData,
+    };
+
+    try {
+      await userAPI.sellFlowers(flowerDataWithId, localStorage.getItem('token'));
+      return toast.success('Venda realizada com sucesso!');
+    } catch (error) {
+      return toast.error(error.response.data.error);
+    }
+  };
+
   return (
     <div className="div_dashboard-stock">
       <Modal
@@ -59,6 +75,19 @@ function Stock(props) {
           flowerInfo={flowerInfo}
           handleSubmit={isEdit ? editFlower : handleSubmit}
           closeModal={() => setOpenModal(false)}
+        />
+      </Modal>
+      <Modal
+        top="30%"
+        left="40%"
+        width="348px"
+        height="254px"
+        modalIsOpen={openModalSell}
+        closeModal={() => { setOpenModalSell(false); }}
+      >
+        <SellForm
+          sellFlower={sellFlower}
+          flowerInfo={flowerInfo}
         />
       </Modal>
       <header className="header_dashboard-stock">
@@ -108,7 +137,14 @@ function Stock(props) {
                   <td>{flower.quantity}</td>
                   <td>
                     <div>
-                      <CleanButton onClick={() => {}}>
+                      <CleanButton onClick={() => {
+                        setFlowerId(_id);
+                        setOpenModalSell(true);
+                        setFlowerInfo({
+                          price: flower.price,
+                        });
+                      }}
+                      >
                         <img alt="add button" src="/assets/images/sell2.png" />
                       </CleanButton>
                       <CleanButton onClick={() => {

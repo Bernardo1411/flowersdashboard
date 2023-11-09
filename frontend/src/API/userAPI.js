@@ -38,10 +38,10 @@ const userAPI = {
     return response.data;
   },
 
-  sellFlowers: async (flowerId, quantityToSell, token) => {
+  sellFlowers: async (flowerData, token) => {
     const response = await axios.post(
       `${API_BASE_URL}/user/sellflower`,
-      { flowerId, quantityToSell },
+      flowerData,
       {
         headers: { Authorization: `Bearer ${token}` },
       },

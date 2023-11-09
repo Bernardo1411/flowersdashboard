@@ -1,0 +1,47 @@
+.div_sellform-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.div_sellform-container h2 {
+    color: #000;
+    text-align: center;
+    font-family: sans-serif;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.div_sellform-input {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 196px;
+    height: 56px;
+    background-color: #F5FBE9;
+    padding: 18px 11px 18px 11px;
+    margin-bottom: 21px;
+}
+
+.p_input-sellform {
+    color: #000;
+    text-align: center;
+    font-family: sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    margin-bottom: 16px;
+}
+
+.input_sellform {
+    background-color: #F5FBE9;
+    border: none;
+    width: 100%;
+    text-align: center;
+    outline: none;
+}
