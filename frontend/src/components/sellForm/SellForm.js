@@ -7,9 +7,10 @@ import Button from '../Button/Button';
 import './SellForm.css';
 
 function SellForm(props) {
-  const { flowerInfo, sellFlower } = props;
+  const { flowerInfo, sellFlower, closeModal } = props;
 
   const [quantity, setQuantity] = useState(0);
+  const [requestCompleted, setRequestCompleted] = useState(false);
 
   const handleIncrement = () => {
     setQuantity(quantity + 1);
@@ -21,7 +22,25 @@ function SellForm(props) {
     }
   };
 
-  return (
+  const sellModal = requestCompleted ? (
+    <div className="div_sellform-container">
+      <img alt="confirm" src="/assets/images/sellcompleted.png" />
+      <h2 style={{ fontWeight: 'bold', marginBottom: '8px' }}>Venda registrada!</h2>
+      <h3 style={{ marginBottom: '16px' }}>Venda registrada!</h3>
+      <Button
+        style={{
+          width: '175px',
+          backgroundColor: '#6C9300',
+          border: 'none',
+        }}
+        type="button"
+        onClick={closeModal}
+      >
+        Concluir
+      </Button>
+    </div>
+
+  ) : (
     <div className="div_sellform-container">
       <h2>Quantas rosas vermelhas foram vendidas?</h2>
       <div className="div_sellform-input">
@@ -58,8 +77,9 @@ function SellForm(props) {
           border: 'none',
         }}
         type="button"
-        onClick={() => {
-          sellFlower({ quantityToSell: quantity });
+        onClick={async () => {
+          const response = await sellFlower({ quantityToSell: quantity });
+          setRequestCompleted(response);
         }}
       >
         Registrar venda
@@ -67,6 +87,8 @@ function SellForm(props) {
       </Button>
     </div>
   );
+
+  return sellModal;
 }
 
 SellForm.propTypes = {
@@ -78,6 +100,7 @@ SellForm.propTypes = {
     quantity: PropTypes.number.isRequired,
   }).isRequired,
   sellFlower: PropTypes.func.isRequired,
+  closeModal: PropTypes.func.isRequired,
 };
 
 export default SellForm;

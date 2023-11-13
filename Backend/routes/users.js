@@ -13,5 +13,6 @@ router.get('/user', userController.protect, userController.getUser);
 router.get('/user/getflowers', userController.protect, userController.getFlowers);
 router.post('/user/sellflower', userController.protect, userController.sellFlowers);
 router.put('/user/editflower', userController.protect, userController.editFlower);
+router.delete('/user/deleteflower', userController.protect, userController.deleteFlower);
 
 module.exports = router;

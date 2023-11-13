@@ -57,6 +57,15 @@ const userAPI = {
 
     return response.data;
   },
+
+  deleteFlower: async (flowerId, token) => {
+    const response = await axios.delete(`${API_BASE_URL}/user/deleteflower`, {
+      headers: { Authorization: `Bearer ${token}` },
+      data: { flowerId }, // Send flowerId in the request body
+    });
+
+    return response.data;
+  },
 };
 
 export default userAPI;

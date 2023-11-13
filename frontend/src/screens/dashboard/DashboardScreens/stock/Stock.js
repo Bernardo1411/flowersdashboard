@@ -54,9 +54,20 @@ function Stock(props) {
 
     try {
       await userAPI.sellFlowers(flowerDataWithId, localStorage.getItem('token'));
-      return toast.success('Venda realizada com sucesso!');
+      toast.success('Venda realizada com sucesso!');
+      return true;
     } catch (error) {
-      return toast.error(error.response.data.error);
+      toast.error(error.response.data.error);
+      return false;
+    }
+  };
+
+  const deleteFlower = async (flowerIdParameter) => {
+    try {
+      await userAPI.deleteFlower(flowerIdParameter, localStorage.getItem('token'));
+      toast.success('Flor deletada com sucesso!');
+    } catch (error) {
+      toast.error(error.response.data.error);
     }
   };
 
@@ -81,11 +92,12 @@ function Stock(props) {
         top="30%"
         left="40%"
         width="348px"
-        height="254px"
+        height="280px"
         modalIsOpen={openModalSell}
         closeModal={() => { setOpenModalSell(false); }}
       >
         <SellForm
+          closeModal={() => setOpenModalSell(false)}
           sellFlower={sellFlower}
           flowerInfo={flowerInfo}
         />
@@ -162,7 +174,7 @@ function Stock(props) {
                       >
                         <img alt="add button" src="/assets/images/edit.png" />
                       </CleanButton>
-                      <CleanButton onClick={() => {}}>
+                      <CleanButton onClick={() => deleteFlower(_id)}>
                         <img alt="add button" src="/assets/images/delete.png" />
                       </CleanButton>
                     </div>

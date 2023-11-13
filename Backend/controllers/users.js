@@ -304,3 +304,31 @@ exports.editFlower = (req, res) => {
     });
   });
 };
+
+exports.deleteFlower = (req, res) => {
+  const { flowerId } = req.body;
+
+  return Flowers.findById(flowerId, (err, flower) => {
+    if (err) {
+      return res.status(500).json({ error: 'Erro no servidor.' });
+    }
+
+    if (!flower) {
+      return res.status(404).json({ error: 'Flor não encontrada' });
+    }
+
+    return flower.remove((removeErr) => {
+      if (removeErr) {
+        return res.status(500).json({ error: 'Falha ao deletar flor.' });
+      }
+
+      return Flowers.find((listErr, flowers) => {
+        if (listErr) {
+          return res.status(500).json({ error: 'Erro ao buscar lista de flores atualizada.' });
+        }
+
+        return res.status(200).json({ message: 'Flor deletada.', flowers });
+      });
+    });
+  });
+};
