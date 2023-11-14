@@ -7,8 +7,8 @@ const flowerSchema = new Schema({
     type: String,
     required: true,
   },
-  category: {
-    type: String,
+  validity: {
+    type: Date,
     required: true,
   },
   description: {
@@ -32,14 +32,14 @@ const flowerSchema = new Schema({
 flowerSchema.methods.addUser = (flower) => {
   const {
     lote,
-    category,
+    validity,
     description,
     price,
     quantity,
     userId,
   } = flower;
   this.lote = lote;
-  this.category = category;
+  this.validity = validity;
   this.description = description;
   this.price = price;
   this.quantity = quantity;

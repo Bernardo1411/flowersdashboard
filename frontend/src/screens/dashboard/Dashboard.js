@@ -47,8 +47,8 @@ function Dashboard() {
       <Topbar onClick={() => setShowSidebar((state) => !state)} />
       { showSideBar && <SideBar /> }
       <Routes>
-        <Route path="stock" element={<Stock flowers={flowers} />} />
-        <Route path="sell" element={<Stock flowers={flowers} />} />
+        <Route path="stock" element={<Stock flowers={flowers} setFlowers={setFlowers} />} />
+        <Route path="sell" element={<Stock flowers={flowers} setFlowers={setFlowers} />} />
         <Route path="" element={<Main flowers={flowers} />} />
       </Routes>
     </div>

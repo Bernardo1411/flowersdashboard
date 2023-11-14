@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Button from '../../../../components/Button/Button';
+import utils from '../../../../utils/formatDate';
 
 import './Main.css';
 
@@ -26,7 +27,7 @@ function Main(props) {
             <thead>
               <tr>
                 <th>Lote</th>
-                <th>Categoria</th>
+                <th>Validade</th>
                 <th>Descrição</th>
                 <th>Preço</th>
                 <th>Quantidade</th>
@@ -38,7 +39,7 @@ function Main(props) {
                 return (
                   <tr key={_id}>
                     <td>{flower.lote}</td>
-                    <td>{flower.category}</td>
+                    <td>{utils.convertToNormalDate(flower.validity)}</td>
                     <td>{flower.description}</td>
                     <td>{flower.price}</td>
                     <td>{flower.quantity}</td>

@@ -8,11 +8,12 @@ import Modal from '../../../../components/Modal/Modal';
 import userAPI from '../../../../API/userAPI';
 import FlowerSignUpForm from '../../../../components/flowerSignUpForm/FlowerSignUpForm';
 import SellForm from '../../../../components/sellForm/SellForm';
+import utils from '../../../../utils/formatDate';
 
 import './Stock.css';
 
 function Stock(props) {
-  const { flowers } = props;
+  const { flowers, setFlowers } = props;
 
   const [openModal, setOpenModal] = useState(false);
   const [openModalSell, setOpenModalSell] = useState(false);
@@ -22,10 +23,10 @@ function Stock(props) {
 
   const handleSubmit = async (flowerData) => {
     try {
-      // Call the API to add a new flower
-      await userAPI.addFlower(flowerData, localStorage.getItem('token'));
+      const response = await userAPI.addFlower(flowerData, localStorage.getItem('token'));
 
-      // Handle the response or any error here
+      setFlowers(response.data.flowers);
+
       toast.success('Cadastro realizado com sucesso!');
     } catch (error) {
       toast.error(error.response.data.error);
@@ -39,7 +40,10 @@ function Stock(props) {
     };
 
     try {
-      await userAPI.editFlower(flowerDataWithId, localStorage.getItem('token'));
+      const response = await userAPI.editFlower(flowerDataWithId, localStorage.getItem('token'));
+
+      setFlowers(response.flowers);
+
       return toast.success('Edição realizada com sucesso!');
     } catch (error) {
       return toast.error(error.response.data.error);
@@ -53,7 +57,10 @@ function Stock(props) {
     };
 
     try {
-      await userAPI.sellFlowers(flowerDataWithId, localStorage.getItem('token'));
+      const response = await userAPI.sellFlowers(flowerDataWithId, localStorage.getItem('token'));
+
+      setFlowers(response.flowers);
+
       toast.success('Venda realizada com sucesso!');
       return true;
     } catch (error) {
@@ -64,7 +71,10 @@ function Stock(props) {
 
   const deleteFlower = async (flowerIdParameter) => {
     try {
-      await userAPI.deleteFlower(flowerIdParameter, localStorage.getItem('token'));
+      const response = await userAPI.deleteFlower(flowerIdParameter, localStorage.getItem('token'));
+
+      setFlowers(response.flowers);
+
       toast.success('Flor deletada com sucesso!');
     } catch (error) {
       toast.error(error.response.data.error);
@@ -130,7 +140,7 @@ function Stock(props) {
           <thead>
             <tr>
               <th>Lote</th>
-              <th>Categoria</th>
+              <th>Validade</th>
               <th>Descrição</th>
               <th>Preço</th>
               <th>Quantidade</th>
@@ -143,7 +153,7 @@ function Stock(props) {
               return (
                 <tr key={_id}>
                   <td>{flower.lote}</td>
-                  <td>{flower.category}</td>
+                  <td>{utils.convertToNormalDate(flower.validity)}</td>
                   <td>{flower.description}</td>
                   <td>{flower.price}</td>
                   <td>{flower.quantity}</td>
@@ -165,7 +175,7 @@ function Stock(props) {
                         setOpenModal(true);
                         setFlowerInfo({
                           lote: flower.lote,
-                          category: flower.category,
+                          validity: flower.validity,
                           description: flower.description,
                           price: flower.price,
                           quantity: flower.quantity,
@@ -191,6 +201,7 @@ function Stock(props) {
 
 Stock.propTypes = {
   flowers: PropTypes.shape([]).isRequired,
+  setFlowers: PropTypes.func.isRequired,
 };
 
 export default Stock;

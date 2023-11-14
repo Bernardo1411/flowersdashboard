@@ -11,7 +11,7 @@ function FlowerSignUpForm(props) {
   } = props;
 
   const [lote, setLote] = useState(isEdit ? flowerInfo.lote : '');
-  const [category, setCategory] = useState(isEdit ? flowerInfo.category : '');
+  const [validity, setValidity] = useState(isEdit ? flowerInfo.validity : '');
   const [description, setDescription] = useState(isEdit ? flowerInfo.description : '');
   const [price, setPrice] = useState(isEdit ? flowerInfo.price : '');
   const [quantity, setQuantity] = useState(isEdit ? flowerInfo.quantity : '');
@@ -24,9 +24,9 @@ function FlowerSignUpForm(props) {
         Lote
         <input placeholder="Digite aqui..." type="text" id="lote" name="lote" value={lote} onChange={(e) => setLote(e.target.value)} className="input_input-form-signup-flower" />
       </label>
-      <label htmlFor="category" className="label_input-form-signup-flower">
-        Categoria
-        <input placeholder="Digite aqui..." type="text" id="category" name="category" value={category} onChange={(e) => setCategory(e.target.value)} className="input_input-form-signup-flower" />
+      <label htmlFor="validity" className="label_input-form-signup-flower">
+        Validade
+        <input placeholder="Digite aqui..." type="date" id="validity" name="validity" value={validity} onChange={(e) => setValidity(e.target.value)} className="input_input-form-signup-flower" />
       </label>
       <label htmlFor="description" className="label_input-form-signup-flower">
         Descrição
@@ -59,7 +59,7 @@ function FlowerSignUpForm(props) {
           }}
           onClick={() => {
             handleSubmit({
-              lote, category, description, price, quantity,
+              lote, validity, description, price, quantity,
             });
 
             closeModal();
@@ -78,7 +78,7 @@ FlowerSignUpForm.propTypes = {
   isEdit: PropTypes.bool.isRequired,
   flowerInfo: PropTypes.shape({
     lote: PropTypes.string.isRequired,
-    category: PropTypes.string.isRequired,
+    validity: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
     quantity: PropTypes.number.isRequired,

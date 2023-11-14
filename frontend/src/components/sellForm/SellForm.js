@@ -94,7 +94,7 @@ function SellForm(props) {
 SellForm.propTypes = {
   flowerInfo: PropTypes.shape({
     lote: PropTypes.string.isRequired,
-    category: PropTypes.string.isRequired,
+    validity: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
     quantity: PropTypes.number.isRequired,
