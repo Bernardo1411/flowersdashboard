@@ -23,3 +23,18 @@
     align-items: center;
     margin-right: 32px;
 }
+
+.logout_div-topbar {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 120px;
+    height: 50px;
+    position: absolute;
+    top: 60px;
+    right: 30px;
+    border-radius: 5px;
+    background-color: white;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
