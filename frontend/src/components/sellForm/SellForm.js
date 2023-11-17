@@ -69,7 +69,7 @@ function SellForm(props) {
           <p style={{ color: '#6C9300' }}>+</p>
         </CleanButton>
       </div>
-      <p className="p_input-sellform">{`Valor total: ${flowerInfo.price * quantity}`}</p>
+      <p className="p_input-sellform">{`Valor total: ${new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(flowerInfo.price * quantity)}`}</p>
       <Button
         style={{
           width: '175px',

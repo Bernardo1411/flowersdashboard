@@ -13,6 +13,7 @@ import './Dashboard.css';
 function Dashboard() {
   const [flowers, setFlowers] = useState([]);
   const [showSideBar, setShowSidebar] = useState(false);
+  const [user, setUser] = useState({});
 
   const fetchUsers = async () => {
     try {
@@ -36,7 +37,9 @@ function Dashboard() {
 
   useEffect(() => {
     (async () => {
-      await fetchUsers();
+      const response = await fetchUsers();
+
+      setUser(response);
 
       fetchFlowers();
     })();
@@ -47,9 +50,9 @@ function Dashboard() {
       <Topbar onClick={() => setShowSidebar((state) => !state)} />
       { showSideBar && <SideBar /> }
       <Routes>
-        <Route path="stock" element={<Stock flowers={flowers} setFlowers={setFlowers} />} />
-        <Route path="sell" element={<Stock flowers={flowers} setFlowers={setFlowers} />} />
-        <Route path="" element={<Main flowers={flowers} />} />
+        <Route path="stock" element={<Stock flowers={flowers} setFlowers={setFlowers} setUser={setUser} />} />
+        <Route path="sell" element={<Stock flowers={flowers} setFlowers={setFlowers} setUser={setUser} />} />
+        <Route path="" element={<Main flowers={flowers} user={user} />} />
       </Routes>
     </div>
   );

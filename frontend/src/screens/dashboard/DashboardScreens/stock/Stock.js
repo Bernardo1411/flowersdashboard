@@ -13,7 +13,7 @@ import utils from '../../../../utils/formatDate';
 import './Stock.css';
 
 function Stock(props) {
-  const { flowers, setFlowers } = props;
+  const { flowers, setFlowers, setUser } = props;
 
   const [openModal, setOpenModal] = useState(false);
   const [openModalSell, setOpenModalSell] = useState(false);
@@ -61,7 +61,12 @@ function Stock(props) {
 
       setFlowers(response.flowers);
 
+      const userData = await userAPI.getUser(localStorage.getItem('token'));
+
+      setUser(userData);
+
       toast.success('Venda realizada com sucesso!');
+
       return true;
     } catch (error) {
       toast.error(error.response.data.error);
@@ -155,7 +160,7 @@ function Stock(props) {
                   <td>{flower.lote}</td>
                   <td>{utils.convertToNormalDate(flower.validity)}</td>
                   <td>{flower.description}</td>
-                  <td>{flower.price}</td>
+                  <td>{new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(flower.price)}</td>
                   <td>
                     <div className="indicator" style={{ backgroundColor: flower.quantity < 5 ? '#D83F51' : '#80AE00' }} />
                     {flower.quantity}
@@ -205,6 +210,7 @@ function Stock(props) {
 Stock.propTypes = {
   flowers: PropTypes.shape([]).isRequired,
   setFlowers: PropTypes.func.isRequired,
+  setUser: PropTypes.func.isRequired,
 };
 
 export default Stock;
