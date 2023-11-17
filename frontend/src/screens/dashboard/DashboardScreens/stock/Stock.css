@@ -156,6 +156,14 @@
     width: 15%;
 }
 
+.table_table-stock tbody td .indicator {
+    width: 10px;
+    max-width: 10px;
+    height: 10px;
+    border-radius: 100%;
+    margin-right: 4px;
+}
+
 .table_table-stock tbody td div {
     display: flex;
     flex-direction: row;

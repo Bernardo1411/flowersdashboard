@@ -156,7 +156,10 @@ function Stock(props) {
                   <td>{utils.convertToNormalDate(flower.validity)}</td>
                   <td>{flower.description}</td>
                   <td>{flower.price}</td>
-                  <td>{flower.quantity}</td>
+                  <td>
+                    <div className="indicator" style={{ backgroundColor: flower.quantity < 5 ? '#D83F51' : '#80AE00' }} />
+                    {flower.quantity}
+                  </td>
                   <td>
                     <div>
                       <CleanButton onClick={() => {
