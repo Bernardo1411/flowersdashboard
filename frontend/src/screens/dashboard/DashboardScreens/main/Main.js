@@ -86,7 +86,7 @@ function Main(props) {
               fontSize: '20px',
             }}
             icon={<img alt="add button" src="/assets/images/add_circle.png" style={{ marginLeft: '114px' }} />}
-            onClick={() => {}}
+            onClick={() => { window.location.href = 'http://localhost:3000/dashboard/stock'; }}
           >
             Cadastrar Novas Flores
           </Button>
