@@ -1,14 +1,45 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { toast } from 'react-toastify';
 
 import Button from '../../../../components/Button/Button';
 import utils from '../../../../utils/formatDate';
 import CleanButton from '../../../../components/cleanButton/CleanButton';
+import userAPI from '../../../../API/userAPI';
 
 import './Main.css';
 
 function Main(props) {
-  const { flowers, user } = props;
+  const { userProps } = props;
+
+  const [flowers, setFlowers] = useState([]);
+  const [user, setUser] = useState(userProps);
+
+  const fetchUsers = async () => {
+    try {
+      const userData = await userAPI.getUser(localStorage.getItem('token'));
+
+      return setUser(userData.user);
+    } catch (error) {
+      return toast.error(error.response.data.error);
+    }
+  };
+
+  const fetchFlowers = async () => {
+    try {
+      const flowersData = await userAPI.getFlowers(localStorage.getItem('token'));
+
+      return setFlowers(flowersData);
+    } catch (error) {
+      return toast.error(error.response.data.error);
+    }
+  };
+
+  useEffect(() => {
+    fetchFlowers();
+
+    fetchUsers();
+  }, []);
 
   const month = new Date().getMonth() + 1; // Get the current month
   const year = new Date().getFullYear(); // Get the current year
@@ -29,7 +60,7 @@ function Main(props) {
         <h2 style={{ fontWeight: 'bold' }}>
           Bem-vindo,
           {' '}
-          {user.name}
+          {user?.name}
           {'. '}
         </h2>
         <h2>Aqui é possível ter uma visão geral do estoque de suas flores</h2>
@@ -153,8 +184,7 @@ function Main(props) {
 }
 
 Main.propTypes = {
-  flowers: PropTypes.shape([]).isRequired,
-  user: PropTypes.shape({
+  userProps: PropTypes.shape({
     name: PropTypes.string.isRequired,
     soldFlowers: PropTypes.shape({}).isRequired,
   }).isRequired,

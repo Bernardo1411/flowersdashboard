@@ -15,6 +15,10 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
+  soldFlowers: {
+    type: Object,
+    default: {},
+  },
 });
 
 userSchema.methods.addUser = (user) => {

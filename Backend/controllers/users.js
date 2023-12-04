@@ -33,12 +33,12 @@ exports.protect = (req, res, next) => {
 // return an user
 exports.getUser = (req, res) => {
   const {
-    address, email, name, _id,
+    address, email, name, _id, soldFlowers,
   } = req.body.user.userExists;
 
   res.status(200).json({
     user: {
-      address, email, name, id: _id,
+      address, email, name, id: _id, soldFlowers,
     },
   });
 };
@@ -51,6 +51,8 @@ exports.signupFlower = (req, res) => {
     description,
     price,
     quantity,
+    category,
+    provider,
   } = req.body;
 
   const numberPrice = typeof price === 'number' ? price : Number(price);
@@ -59,8 +61,9 @@ exports.signupFlower = (req, res) => {
   const userId = req.body.user.userExists._id;
 
   if (lote === '') return res.status(400).json({ error: 'Lote inválido!' });
-  if (validity === '') return res.status(400).json({ error: 'Categoria inválida!' });
+  if (validity === '') return res.status(400).json({ error: 'Validade inválida!' });
   if (description === '') return res.status(400).json({ error: 'Descrição inválida!' });
+  if (category === '') return res.status(400).json({ error: 'Categoria inválida!' });
   if (numberPrice <= 0) return res.status(400).json({ error: 'Preço inválido' });
   if (numberQuantity <= 0) return res.status(400).json({ error: 'quantidade inválida!' });
 
@@ -75,6 +78,8 @@ exports.signupFlower = (req, res) => {
         lote,
         validity,
         description,
+        category,
+        provider,
         price: numberPrice,
         quantity: numberQuantity,
         userId,
@@ -255,7 +260,26 @@ exports.sellFlowers = (req, res) => {
           if (findErr) {
             return res.status(500).json({ error: 'Error fetching the updated list of flowers.' });
           }
-          return res.status(200).json({ message: 'Flor vendida.', flowers });
+
+          const currentMonth = new Date().getMonth() + 1;
+          const currentYear = new Date().getFullYear();
+
+          return User.findByIdAndUpdate(
+            userId,
+            {
+              $inc: {
+                [`soldFlowers.${currentMonth}-${currentYear}`]: quantityToSell,
+              },
+            },
+            { new: true },
+            (updateErr) => {
+              if (updateErr) {
+                return res.status(500).json({ error: 'Falha ao atualizar o número de flores vendidas.' });
+              }
+
+              return res.status(200).json({ message: 'Flor vendida.', flowers });
+            },
+          );
         });
       });
     }
@@ -272,6 +296,8 @@ exports.editFlower = (req, res) => {
     description,
     price,
     quantity,
+    category,
+    provider,
   } = req.body;
 
   const userId = req.body.user.userExists._id;
@@ -291,6 +317,8 @@ exports.editFlower = (req, res) => {
       description,
       price,
       quantity,
+      category,
+      provider,
     };
 
     flower.set(updatedFlower);
@@ -311,7 +339,7 @@ exports.editFlower = (req, res) => {
   });
 };
 
-// Controller related to deleting flowers
+// Controller related to updating the quantity of flowers to zero
 exports.deleteFlower = (req, res) => {
   const { flowerId } = req.body;
 
@@ -326,18 +354,31 @@ exports.deleteFlower = (req, res) => {
       return res.status(404).json({ error: 'Flor não encontrada' });
     }
 
-    return flower.remove((removeErr) => {
-      if (removeErr) {
-        return res.status(500).json({ error: 'Falha ao deletar flor.' });
-      }
+    // Create a copy of the flower object
+    const updatedFlower = {
+      ...flower.toObject(),
+      quantity: 0,
+    };
 
-      return Flowers.find({ userId }).exec((findErr, flowers) => {
-        if (findErr) {
-          return res.status(500).json({ error: 'Error fetching the updated list of flowers.' });
+    // Update the quantity in the database
+    return Flowers.findByIdAndUpdate(
+      flowerId,
+      updatedFlower,
+
+      { new: true },
+      (updateErr) => {
+        if (updateErr) {
+          return res.status(500).json({ error: 'Falha ao atualizar a quantidade da flor.' });
         }
 
-        return res.status(200).json({ message: 'Flor deletada.', flowers });
-      });
-    });
+        return Flowers.find({ userId }).exec((findErr, flowers) => {
+          if (findErr) {
+            return res.status(500).json({ error: 'Erro ao buscar a lista atualizada de flores.' });
+          }
+
+          return res.status(200).json({ message: 'Quantidade da flor atualizada para zero.', flowers });
+        });
+      },
+    );
   });
 };

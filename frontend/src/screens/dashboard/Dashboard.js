@@ -7,11 +7,11 @@ import Topbar from '../../components/topbar/Topbar';
 import SideBar from '../../components/sideBar/SideBar';
 import Main from './DashboardScreens/main/Main';
 import Stock from './DashboardScreens/stock/Stock';
+import Sell from './DashboardScreens/Sell/Sell';
 
 import './Dashboard.css';
 
 function Dashboard() {
-  const [flowers, setFlowers] = useState([]);
   const [showSideBar, setShowSidebar] = useState(false);
   const [user, setUser] = useState({});
 
@@ -25,23 +25,11 @@ function Dashboard() {
     }
   };
 
-  const fetchFlowers = async () => {
-    try {
-      const flowersData = await userAPI.getFlowers(localStorage.getItem('token'));
-
-      return setFlowers(flowersData);
-    } catch (error) {
-      return toast.error(error.response.data.error);
-    }
-  };
-
   useEffect(() => {
     (async () => {
       const response = await fetchUsers();
 
       setUser(response);
-
-      fetchFlowers();
     })();
   }, []);
 
@@ -50,9 +38,9 @@ function Dashboard() {
       <Topbar onClick={() => setShowSidebar((state) => !state)} />
       { showSideBar && <SideBar /> }
       <Routes>
-        <Route path="stock" element={<Stock flowers={flowers} setFlowers={setFlowers} setUser={setUser} />} />
-        <Route path="sell" element={<Stock flowers={flowers} setFlowers={setFlowers} setUser={setUser} />} />
-        <Route path="" element={<Main flowers={flowers} user={user} />} />
+        <Route path="stock" element={<Stock />} />
+        <Route path="sell" element={<Sell />} />
+        <Route path="" element={<Main user={user} />} />
       </Routes>
     </div>
   );
