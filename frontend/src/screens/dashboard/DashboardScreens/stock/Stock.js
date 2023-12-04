@@ -20,6 +20,7 @@ function Stock(props) {
   const [isEdit, setIsEdit] = useState(false);
   const [flowerId, setFlowerId] = useState(false);
   const [flowerInfo, setFlowerInfo] = useState({});
+  const [search, setSearch] = useState('');
 
   const handleSubmit = async (flowerData) => {
     try {
@@ -86,6 +87,10 @@ function Stock(props) {
     }
   };
 
+  const handleSearchChange = (e) => {
+    setSearch(e.target.value);
+  };
+
   return (
     <div className="div_dashboard-stock">
       <Modal
@@ -119,6 +124,23 @@ function Stock(props) {
       </Modal>
       <header className="header_dashboard-stock">
         <h1>Estoque de flores</h1>
+        <div className="login_div-input">
+          <input
+            className="login_input"
+            type="email"
+            id="search"
+            value={search}
+            onChange={handleSearchChange}
+            placeholder="Buscar"
+            required
+          />
+          <CleanButton onClick={() => console.log('buscar')}>
+            <img
+              src="/assets/images/search.png"
+              alt="person"
+            />
+          </CleanButton>
+        </div>
         <Button
           style={{
             width: '114px', backgroundColor: '#6C9300', border: 'none', marginRight: '152px',
