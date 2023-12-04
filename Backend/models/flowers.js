@@ -3,6 +3,10 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const flowerSchema = new Schema({
+  name: {
+    type: String,
+    required: true,
+  },
   lote: {
     type: String,
     required: true,

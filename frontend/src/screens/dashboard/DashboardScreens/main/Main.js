@@ -3,9 +3,10 @@ import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
 
 import Button from '../../../../components/Button/Button';
-import utils from '../../../../utils/formatDate';
 import CleanButton from '../../../../components/cleanButton/CleanButton';
 import userAPI from '../../../../API/userAPI';
+import THeadTable from '../../../../components/THeadTable/THeadTable';
+import utils from '../../../../utils/formatDate';
 
 import './Main.css';
 
@@ -76,11 +77,11 @@ function Main(props) {
           <table className="table_table-main">
             <thead>
               <tr>
-                <th>Lote</th>
-                <th>Validade</th>
+                <THeadTable title="Lote" sortMethod={() => utils.sortByLote(flowers, setFlowers)} />
                 <th>Descrição</th>
-                <th>Preço</th>
-                <th>Quantidade</th>
+                <th>Categoria</th>
+                <THeadTable title="Preço" sortMethod={() => utils.sortByPrice(flowers, setFlowers)} />
+                <THeadTable title="Quantidade" sortMethod={() => utils.sortByQuantity(flowers, setFlowers)} />
               </tr>
             </thead>
             <tbody>
@@ -89,8 +90,8 @@ function Main(props) {
                 return (
                   <tr key={_id}>
                     <td>{flower.lote}</td>
-                    <td>{utils.convertToNormalDate(flower.validity)}</td>
                     <td>{flower.description}</td>
+                    <td>{flower.category}</td>
                     <td>{new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(flower.price)}</td>
                     <td>
                       <div style={{ backgroundColor: flower.quantity < 5 ? '#D83F51' : '#80AE00' }} />

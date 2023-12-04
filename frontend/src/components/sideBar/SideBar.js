@@ -1,11 +1,14 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import './SideBar.css';
 
-function SideBar() {
+function SideBar(props) {
+  const { setShowSidebar } = props;
+
   return (
-    <div className="div-sideBar">
+    <div className="div-sideBar" onMouseLeave={setShowSidebar}>
       <NavLink
         to=""
         className="navlink-navitens"
@@ -37,5 +40,9 @@ function SideBar() {
     </div>
   );
 }
+
+SideBar.propTypes = {
+  setShowSidebar: PropTypes.func.isRequired,
+};
 
 export default SideBar;

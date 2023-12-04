@@ -7,11 +7,14 @@ import Modal from '../../../../components/Modal/Modal';
 import userAPI from '../../../../API/userAPI';
 import FlowerSignUpForm from '../../../../components/flowerSignUpForm/FlowerSignUpForm';
 import utils from '../../../../utils/formatDate';
+import DeleteModal from '../../../../components/DeleteModal/DeleteModal';
+import THeadTable from '../../../../components/THeadTable/THeadTable';
 
 import './Stock.css';
 
 function Stock() {
   const [openModal, setOpenModal] = useState(false);
+  const [openModalDelete, setOpenModalDelete] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
   const [flowerId, setFlowerId] = useState(false);
   const [flowerInfo, setFlowerInfo] = useState({});
@@ -82,7 +85,8 @@ function Stock() {
   const searchHandler = () => {
     if (search !== '') {
       const filterFlowers = filteredFlowers
-        .filter((flower) => flower.category.toLowerCase() === search.toLowerCase()
+        .filter((flower) => flower?.category?.toLowerCase() === search?.toLowerCase()
+     || flower?.name?.toLowerCase() === search?.toLowerCase()
      || flower.lote === search);
 
       setFilteredFlowers([...filterFlowers]);
@@ -94,10 +98,8 @@ function Stock() {
   return (
     <div className="div_dashboard-stock">
       <Modal
-        top="10%"
-        left="32%"
         width="663px"
-        height="570px"
+        height="620px"
         modalIsOpen={openModal}
         closeModal={() => { setOpenModal(false); }}
       >
@@ -106,6 +108,20 @@ function Stock() {
           flowerInfo={flowerInfo}
           handleSubmit={isEdit ? editFlower : handleSubmit}
           closeModal={() => setOpenModal(false)}
+        />
+      </Modal>
+      <Modal
+        width="349px"
+        height="163px"
+        modalIsOpen={openModalDelete}
+        closeModal={() => { setOpenModalDelete(false); }}
+      >
+        <DeleteModal
+          deleteFlower={async () => {
+            await deleteFlower(flowerId);
+            setOpenModalDelete(false);
+          }}
+          closeModal={() => setOpenModalDelete(false)}
         />
       </Modal>
       <header className="header_dashboard-stock">
@@ -154,11 +170,12 @@ function Stock() {
         <table className="table_table-stock">
           <thead>
             <tr>
-              <th>Lote</th>
-              <th>Validade</th>
+              <THeadTable title="Lote" sortMethod={() => utils.sortByLote(filteredFlowers, setFilteredFlowers)} />
+              <THeadTable title="Validade" sortMethod={() => utils.sortByValidity(filteredFlowers, setFilteredFlowers)} />
               <th>Descrição</th>
-              <th>Preço</th>
-              <th>Quantidade</th>
+              <th>Categoria</th>
+              <THeadTable title="Preço" sortMethod={() => utils.sortByPrice(filteredFlowers, setFilteredFlowers)} />
+              <THeadTable title="Quantidade" sortMethod={() => utils.sortByQuantity(filteredFlowers, setFilteredFlowers)} />
               <th>Opções</th>
             </tr>
           </thead>
@@ -170,6 +187,7 @@ function Stock() {
                   <td>{flower.lote}</td>
                   <td>{utils.convertToNormalDate(flower.validity)}</td>
                   <td>{flower.description}</td>
+                  <td>{flower.category}</td>
                   <td>{new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(flower.price)}</td>
                   <td>
                     <div className="indicator" style={{ backgroundColor: flower.quantity < 5 ? '#D83F51' : '#80AE00' }} />
@@ -184,6 +202,7 @@ function Stock() {
                             setIsEdit(true);
                             setOpenModal(true);
                             setFlowerInfo({
+                              name: flower.name,
                               lote: flower.lote,
                               validity: flower.validity,
                               description: flower.description,
@@ -197,7 +216,11 @@ function Stock() {
                           <img alt="add button" src="/assets/images/edit.png" />
                         </CleanButton>
                       </div>
-                      <CleanButton onClick={() => deleteFlower(_id)}>
+                      <CleanButton onClick={() => {
+                        setFlowerId(_id);
+                        setOpenModalDelete(true);
+                      }}
+                      >
                         <img alt="add button" src="/assets/images/delete.png" />
                       </CleanButton>
                     </div>

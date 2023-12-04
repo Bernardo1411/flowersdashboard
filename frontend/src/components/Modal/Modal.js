@@ -8,8 +8,6 @@ function MyModal(props) {
     modalIsOpen,
     closeModal,
     children,
-    top,
-    left,
     width,
     height,
   } = props;
@@ -20,8 +18,9 @@ function MyModal(props) {
       onRequestClose={closeModal}
       style={{
         content: {
-          top,
-          left,
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
           width,
           height,
           flexShrink: 0,
@@ -43,8 +42,6 @@ MyModal.propTypes = {
   modalIsOpen: PropTypes.bool.isRequired,
   closeModal: PropTypes.func.isRequired,
   children: PropTypes.node.isRequired,
-  top: PropTypes.string.isRequired,
-  left: PropTypes.string.isRequired,
   width: PropTypes.string.isRequired,
   height: PropTypes.string.isRequired,
 };

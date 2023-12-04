@@ -53,6 +53,7 @@ exports.signupFlower = (req, res) => {
     quantity,
     category,
     provider,
+    name,
   } = req.body;
 
   const numberPrice = typeof price === 'number' ? price : Number(price);
@@ -63,6 +64,7 @@ exports.signupFlower = (req, res) => {
   if (lote === '') return res.status(400).json({ error: 'Lote inválido!' });
   if (validity === '') return res.status(400).json({ error: 'Validade inválida!' });
   if (description === '') return res.status(400).json({ error: 'Descrição inválida!' });
+  if (name === '') return res.status(400).json({ error: 'Nome inválido!' });
   if (category === '') return res.status(400).json({ error: 'Categoria inválida!' });
   if (numberPrice <= 0) return res.status(400).json({ error: 'Preço inválido' });
   if (numberQuantity <= 0) return res.status(400).json({ error: 'quantidade inválida!' });
@@ -76,6 +78,7 @@ exports.signupFlower = (req, res) => {
     if (!flower) {
       const FlowerInstanc = new Flowers({
         lote,
+        name,
         validity,
         description,
         category,
@@ -298,11 +301,23 @@ exports.editFlower = (req, res) => {
     quantity,
     category,
     provider,
+    name,
   } = req.body;
 
   const userId = req.body.user.userExists._id;
 
-  Flowers.findById(flowerId, (err, flower) => {
+  const numberPrice = typeof price === 'number' ? price : Number(price);
+  const numberQuantity = typeof quantity === 'number' ? quantity : Number(quantity);
+
+  if (lote === '') return res.status(400).json({ error: 'Lote inválido!' });
+  if (validity === '') return res.status(400).json({ error: 'Validade inválida!' });
+  if (description === '') return res.status(400).json({ error: 'Descrição inválida!' });
+  if (name === '') return res.status(400).json({ error: 'Nome inválido!' });
+  if (category === '') return res.status(400).json({ error: 'Categoria inválida!' });
+  if (numberPrice <= 0) return res.status(400).json({ error: 'Preço inválido' });
+  if (numberQuantity <= 0) return res.status(400).json({ error: 'quantidade inválida!' });
+
+  return Flowers.findById(flowerId, (err, flower) => {
     if (err) {
       return res.status(500).json({ error: 'Server error.' });
     }
@@ -319,6 +334,7 @@ exports.editFlower = (req, res) => {
       quantity,
       category,
       provider,
+      name,
     };
 
     flower.set(updatedFlower);

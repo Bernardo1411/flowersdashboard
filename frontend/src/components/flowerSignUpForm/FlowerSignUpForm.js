@@ -10,6 +10,7 @@ function FlowerSignUpForm(props) {
     handleSubmit, closeModal, isEdit, flowerInfo,
   } = props;
 
+  const [name, setName] = useState(isEdit ? flowerInfo.name : '');
   const [lote, setLote] = useState(isEdit ? flowerInfo.lote : '');
   const [validity, setValidity] = useState(isEdit ? flowerInfo.validity : '');
   const [description, setDescription] = useState(isEdit ? flowerInfo.description : '');
@@ -22,6 +23,10 @@ function FlowerSignUpForm(props) {
     <form
       className="form_input-form-signup-flower"
     >
+      <label htmlFor="name" className="label_input-form-signup-flower">
+        Nome
+        <input placeholder="Digite aqui..." id="name" name="name" value={name} onChange={(e) => setName(e.target.value)} className="input_input-form-signup-flower" />
+      </label>
       <div style={{ width: '100%', display: 'flex', flexDirection: 'row' }}>
         <label htmlFor="lote" className="label_input-form-signup-flower" style={{ marginRight: '13px' }}>
           Lote
@@ -76,7 +81,7 @@ function FlowerSignUpForm(props) {
           }}
           onClick={() => {
             handleSubmit({
-              lote, validity, description, price, quantity, category, provider,
+              lote, validity, description, price, quantity, category, provider, name,
             });
 
             closeModal();
@@ -94,6 +99,7 @@ FlowerSignUpForm.propTypes = {
   closeModal: PropTypes.func.isRequired,
   isEdit: PropTypes.bool.isRequired,
   flowerInfo: PropTypes.shape({
+    name: PropTypes.string.isRequired,
     lote: PropTypes.string.isRequired,
     validity: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,

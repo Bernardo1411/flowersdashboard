@@ -6,6 +6,7 @@ import Modal from '../../../../components/Modal/Modal';
 import userAPI from '../../../../API/userAPI';
 import SellForm from '../../../../components/sellForm/SellForm';
 import utils from '../../../../utils/formatDate';
+import THeadTable from '../../../../components/THeadTable/THeadTable';
 
 function Sell() {
   const [openModalSell, setOpenModalSell] = useState(false);
@@ -73,8 +74,6 @@ function Sell() {
   return (
     <div className="div_dashboard-stock">
       <Modal
-        top="30%"
-        left="40%"
         width="348px"
         height="280px"
         modalIsOpen={openModalSell}
@@ -115,11 +114,12 @@ function Sell() {
         <table className="table_table-stock">
           <thead>
             <tr>
-              <th>Lote</th>
-              <th>Validade</th>
+              <THeadTable title="Lote" sortMethod={() => utils.sortByLote(filteredFlowers, setFilteredFlowers)} />
+              <THeadTable title="Validade" sortMethod={() => utils.sortByValidity(filteredFlowers, setFilteredFlowers)} />
               <th>Descrição</th>
-              <th>Preço</th>
-              <th>Quantidade</th>
+              <th>Categoria</th>
+              <THeadTable title="Preço" sortMethod={() => utils.sortByPrice(filteredFlowers, setFilteredFlowers)} />
+              <THeadTable title="Quantidade" sortMethod={() => utils.sortByQuantity(filteredFlowers, setFilteredFlowers)} />
               <th>Opções</th>
             </tr>
           </thead>
@@ -131,6 +131,7 @@ function Sell() {
                   <td>{flower.lote}</td>
                   <td>{utils.convertToNormalDate(flower.validity)}</td>
                   <td>{flower.description}</td>
+                  <td>{flower.category}</td>
                   <td>{new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(flower.price)}</td>
                   <td>
                     <div className="indicator" style={{ backgroundColor: flower.quantity < 5 ? '#D83F51' : '#80AE00' }} />
