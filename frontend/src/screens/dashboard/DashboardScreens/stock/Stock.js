@@ -6,7 +6,7 @@ import CleanButton from '../../../../components/cleanButton/CleanButton';
 import Modal from '../../../../components/Modal/Modal';
 import userAPI from '../../../../API/userAPI';
 import FlowerSignUpForm from '../../../../components/flowerSignUpForm/FlowerSignUpForm';
-import utils from '../../../../utils/formatDate';
+import utils from '../../../../utils/utils';
 import DeleteModal from '../../../../components/DeleteModal/DeleteModal';
 import THeadTable from '../../../../components/THeadTable/THeadTable';
 

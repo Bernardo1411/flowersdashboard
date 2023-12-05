@@ -5,7 +5,7 @@ import CleanButton from '../../../../components/cleanButton/CleanButton';
 import Modal from '../../../../components/Modal/Modal';
 import userAPI from '../../../../API/userAPI';
 import SellForm from '../../../../components/sellForm/SellForm';
-import utils from '../../../../utils/formatDate';
+import utils from '../../../../utils/utils';
 import THeadTable from '../../../../components/THeadTable/THeadTable';
 
 function Sell() {

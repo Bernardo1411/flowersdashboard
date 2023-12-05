@@ -6,7 +6,7 @@ import Button from '../../../../components/Button/Button';
 import CleanButton from '../../../../components/cleanButton/CleanButton';
 import userAPI from '../../../../API/userAPI';
 import THeadTable from '../../../../components/THeadTable/THeadTable';
-import utils from '../../../../utils/formatDate';
+import utils from '../../../../utils/utils';
 
 import './Main.css';
 
