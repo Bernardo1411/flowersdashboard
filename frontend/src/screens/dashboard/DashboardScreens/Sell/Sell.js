@@ -88,7 +88,7 @@ function Sell() {
         />
       </Modal>
       <header className="header_dashboard-stock">
-        <h1>Estoque de flores</h1>
+        <h1>Registrar venda</h1>
         <div className="login_div-input" style={{ marginRight: '150px' }}>
           <input
             className="login_input"
