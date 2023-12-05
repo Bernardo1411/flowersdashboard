@@ -174,6 +174,7 @@ function Stock() {
               <THeadTable title="Validade" sortMethod={() => utils.sortByValidity(filteredFlowers, setFilteredFlowers)} />
               <th>Descrição</th>
               <th>Categoria</th>
+              <th>Fornecedor</th>
               <THeadTable title="Preço" sortMethod={() => utils.sortByPrice(filteredFlowers, setFilteredFlowers)} />
               <THeadTable title="Quantidade" sortMethod={() => utils.sortByQuantity(filteredFlowers, setFilteredFlowers)} />
               <th>Opções</th>
@@ -188,6 +189,7 @@ function Stock() {
                   <td>{utils.convertToNormalDate(flower.validity)}</td>
                   <td>{flower.description}</td>
                   <td>{flower.category}</td>
+                  <td>{flower.provider}</td>
                   <td>{new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(flower.price)}</td>
                   <td>
                     <div className="indicator" style={{ backgroundColor: flower.quantity < 5 ? '#D83F51' : '#80AE00' }} />
