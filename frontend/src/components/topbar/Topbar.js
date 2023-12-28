@@ -30,7 +30,7 @@ function Topbar(props) {
           openLogout && (
           <div className="logout_div-topbar">
             <CleanButton onClick={() => {
-              localStorage.removeItem('token');
+              sessionStorage.removeItem('token');
               navigate('/login');
             }}
             >

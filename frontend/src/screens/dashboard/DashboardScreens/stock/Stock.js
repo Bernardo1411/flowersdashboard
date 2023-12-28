@@ -23,7 +23,7 @@ function Stock() {
 
   const fetchFlowers = async () => {
     try {
-      const flowersData = await userAPI.getFlowers(localStorage.getItem('token'));
+      const flowersData = await userAPI.getFlowers(sessionStorage.getItem('token'));
 
       return setFilteredFlowers(flowersData);
     } catch (error) {
@@ -39,7 +39,7 @@ function Stock() {
 
   const handleSubmit = async (flowerData) => {
     try {
-      const flowersAPI = await userAPI.addFlower(flowerData, localStorage.getItem('token'));
+      const flowersAPI = await userAPI.addFlower(flowerData, sessionStorage.getItem('token'));
 
       setFilteredFlowers(flowersAPI.data.flowers);
 
@@ -56,7 +56,7 @@ function Stock() {
     };
 
     try {
-      const flowersAPI = await userAPI.editFlower(flowerDataWithId, localStorage.getItem('token'));
+      const flowersAPI = await userAPI.editFlower(flowerDataWithId, sessionStorage.getItem('token'));
 
       setFilteredFlowers(flowersAPI.flowers);
 
@@ -68,7 +68,7 @@ function Stock() {
 
   const deleteFlower = async (flowerIdParameter) => {
     try {
-      const flowersAPI = await userAPI.deleteFlower(flowerIdParameter, localStorage.getItem('token'));
+      const flowersAPI = await userAPI.deleteFlower(flowerIdParameter, sessionStorage.getItem('token'));
 
       setFilteredFlowers(flowersAPI.flowers);
 

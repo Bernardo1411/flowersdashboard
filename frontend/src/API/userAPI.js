@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'http://192.168.0.7:5001';
+const API_BASE_URL = 'https://lively-helmet-goat.cyclic.app/';
 const userAPI = {
   signupUser: async (userData) => {
     const response = await axios.post(`${API_BASE_URL}/user/signup`, userData);

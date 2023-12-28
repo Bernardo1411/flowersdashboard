@@ -41,7 +41,7 @@ function Login() {
         const response = await userAPI.signinUser(userData);
 
         toast.success('Login realizado com sucesso!');
-        localStorage.setItem('token', response.token);
+        sessionStorage.setItem('token', response.token);
         navigate('/dashboard');
       } catch (error) {
         toast.error(error.response.data.error);

@@ -17,7 +17,7 @@ function Sell() {
 
   const fetchFlowers = async () => {
     try {
-      const flowersData = await userAPI.getFlowers(localStorage.getItem('token'));
+      const flowersData = await userAPI.getFlowers(sessionStorage.getItem('token'));
 
       return setFilteredFlowers(flowersData);
     } catch (error) {
@@ -38,11 +38,11 @@ function Sell() {
     };
 
     try {
-      const flowersAPI = await userAPI.sellFlowers(flowerDataWithId, localStorage.getItem('token'));
+      const flowersAPI = await userAPI.sellFlowers(flowerDataWithId, sessionStorage.getItem('token'));
 
       setFilteredFlowers(flowersAPI.flowers);
 
-      await userAPI.getUser(localStorage.getItem('token'));
+      await userAPI.getUser(sessionStorage.getItem('token'));
 
       setOpenModalSell(false);
 

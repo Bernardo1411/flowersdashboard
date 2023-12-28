@@ -17,7 +17,7 @@ function Dashboard() {
 
   const fetchUsers = async () => {
     try {
-      const userData = await userAPI.getUser(localStorage.getItem('token'));
+      const userData = await userAPI.getUser(sessionStorage.getItem('token'));
 
       return userData.user;
     } catch (error) {

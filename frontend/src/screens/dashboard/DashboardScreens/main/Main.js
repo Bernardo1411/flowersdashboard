@@ -18,7 +18,7 @@ function Main(props) {
 
   const fetchUsers = async () => {
     try {
-      const userData = await userAPI.getUser(localStorage.getItem('token'));
+      const userData = await userAPI.getUser(sessionStorage.getItem('token'));
 
       return setUser(userData.user);
     } catch (error) {
@@ -28,7 +28,7 @@ function Main(props) {
 
   const fetchFlowers = async () => {
     try {
-      const flowersData = await userAPI.getFlowers(localStorage.getItem('token'));
+      const flowersData = await userAPI.getFlowers(sessionStorage.getItem('token'));
 
       return setFlowers(flowersData);
     } catch (error) {
