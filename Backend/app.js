@@ -6,12 +6,12 @@ const cors = require('cors');
 
 const app = express();
 const port = 5001;
-// const { DB_USER } = process.env;
-// const { DB_PASSWORD } = process.env;
+const { DB_USER } = process.env;
+const { DB_PASSWORD } = process.env;
 
 app.use(cors());
 
-const uri = 'mongodb+srv://bernardo1411:qgwUqBa3mllUZITv@flowers.8rnkndy.mongodb.net/?retryWrites=true&w=majority';
+const uri = `mongodb+srv://${DB_USER}:${DB_PASSWORD}@flowers.8rnkndy.mongodb.net/?retryWrites=true&w=majority`;
 
 const usersRoutes = require('./routes/users');
 
