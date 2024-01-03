@@ -88,23 +88,25 @@ function Sell() {
         />
       </Modal>
       <header className="header_dashboard-stock">
-        <h1>Registrar venda</h1>
-        <div className="login_div-input" style={{ marginRight: '150px' }}>
-          <input
-            className="login_input"
-            type="email"
-            id="search"
-            value={search}
-            onChange={handleSearchChange}
-            placeholder="Buscar"
-            required
-          />
-          <CleanButton onClick={searchHandler}>
-            <img
-              src="/assets/images/search.png"
-              alt="person"
+        <div className="header_dashboard-stock-content">
+          <h1>Registrar venda</h1>
+          <div className="login_div-input stock" style={{ marginRight: '13px' }}>
+            <input
+              className="login_input"
+              type="email"
+              id="search"
+              value={search}
+              onChange={handleSearchChange}
+              placeholder="Buscar"
+              required
             />
-          </CleanButton>
+            <CleanButton onClick={searchHandler}>
+              <img
+                src="/assets/images/search.png"
+                alt="person"
+              />
+            </CleanButton>
+          </div>
         </div>
       </header>
       <div className="div_table-stock">
@@ -136,8 +138,8 @@ function Sell() {
                   <td>{flower.provider}</td>
                   <td>{new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(flower.price)}</td>
                   <td>
-                    <div className="indicator" style={{ backgroundColor: flower.quantity < 5 ? '#D83F51' : '#80AE00' }} />
-                    {flower.quantity}
+                    <span className="indicator" style={{ backgroundColor: flower?.quantity < 5 ? '#D83F51' : '#80AE00' }} />
+                    {flower?.quantity}
                   </td>
                   <td>
                     <CleanButton onClick={async () => {
@@ -153,7 +155,13 @@ function Sell() {
                   </td>
                 </tr>
               );
-            }) : <p>Nenhuma flor cadastrada.</p>}
+            }) : (
+              <tr>
+                <td>
+                  <p>Nenhuma flor cadastrada.</p>
+                </td>
+              </tr>
+            )}
           </tbody>
         </table>
       </div>

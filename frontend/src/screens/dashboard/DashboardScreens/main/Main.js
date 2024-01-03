@@ -64,7 +64,7 @@ function Main(props) {
           {user?.name}
           {'. '}
         </h2>
-        <h2>Aqui é possível ter uma visão geral do estoque de suas flores</h2>
+        <h2 className="header_dashboard-main-description">Aqui é possível ter uma visão geral do estoque de suas flores</h2>
       </header>
       <div className="div_content-main">
         <div className="div_table-main">
@@ -94,24 +94,32 @@ function Main(props) {
                     <td>{flower.category}</td>
                     <td>{new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(flower.price)}</td>
                     <td>
-                      <div style={{ backgroundColor: flower.quantity < 5 ? '#D83F51' : '#80AE00' }} />
-                      {flower.quantity}
+                      <span style={{ backgroundColor: flower?.quantity < 5 ? '#D83F51' : '#80AE00' }} />
+                      {flower?.quantity}
                     </td>
                   </tr>
                 );
-              }) : <p>Nenhuma flor cadastrada.</p>}
+              }) : (
+                <tr>
+                  <td>
+                    <p>Nenhuma flor cadastrada.</p>
+                  </td>
+                </tr>
+              )}
             </tbody>
           </table>
         </div>
-        <div>
+        <div className="div_buttons">
           <Button
             style={{
-              width: '442px',
+              width: '100%',
               height: '120px',
               backgroundColor: '#6C9300',
               border: 'none',
               borderRadius: '25px',
               marginBottom: '8px',
+              paddingLeft: '10px',
+              paddingRight: '10px',
             }}
             textStyle={{
               fontFamily: 'sans-serif',
@@ -124,17 +132,19 @@ function Main(props) {
           </Button>
           <Button
             style={{
-              width: '442px',
+              width: '100%',
               height: '120px',
               backgroundColor: '#E1DEF2',
               border: 'none',
               borderRadius: '25px',
               marginBottom: '8px',
               overflow: 'hidden',
+              paddingLeft: '10px',
+              paddingRight: '10px',
             }}
             textStyle={{
               fontFamily: 'sans-serif',
-              fontSize: '55px',
+              fontSize: '45px',
               fontWeight: 'bold',
               color: '#6149CD',
             }}
@@ -152,17 +162,19 @@ function Main(props) {
           </Button>
           <Button
             style={{
-              width: '442px',
+              width: '100%',
               height: '120px',
               backgroundColor: '#F8F1EB',
               border: 'none',
               borderRadius: '25px',
               marginBottom: '8px',
               overflow: 'hidden',
+              paddingLeft: '10px',
+              paddingRight: '10px',
             }}
             textStyle={{
               fontFamily: 'sans-serif',
-              fontSize: '55px',
+              fontSize: '45px',
               fontWeight: 'bold',
               color: '#D83F51',
             }}
@@ -184,11 +196,15 @@ function Main(props) {
   );
 }
 
+Main.defaultProps = {
+  userProps: {},
+};
+
 Main.propTypes = {
   userProps: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    soldFlowers: PropTypes.shape({}).isRequired,
-  }).isRequired,
+    name: PropTypes.string,
+    soldFlowers: PropTypes.shape({}),
+  }),
 };
 
 export default Main;

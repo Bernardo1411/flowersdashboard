@@ -98,7 +98,7 @@ function Stock() {
   return (
     <div className="div_dashboard-stock">
       <Modal
-        width="663px"
+        width="90%"
         height="620px"
         modalIsOpen={openModal}
         closeModal={() => { setOpenModal(false); }}
@@ -125,42 +125,47 @@ function Stock() {
         />
       </Modal>
       <header className="header_dashboard-stock">
-        <h1>Estoque de flores</h1>
-        <div style={{ display: 'flex', flexDirection: 'row' }}>
-          <div className="login_div-input" style={{ marginRight: '13px' }}>
-            <input
-              className="login_input"
-              type="email"
-              id="search"
-              value={search}
-              onChange={handleSearchChange}
-              placeholder="Buscar"
-              required
-            />
-            <CleanButton onClick={searchHandler}>
-              <img
-                src="/assets/images/search.png"
-                alt="person"
+        <div className="header_dashboard-stock-content">
+          <h1>Estoque de flores</h1>
+          <div style={{ display: 'flex', flexDirection: 'row' }}>
+            <div className="login_div-input stock" style={{ marginRight: '13px' }}>
+              <input
+                className="login_input"
+                type="email"
+                id="search"
+                value={search}
+                onChange={handleSearchChange}
+                placeholder="Buscar"
+                required
               />
-            </CleanButton>
-          </div>
-          <Button
-            style={{
-              width: '114px', backgroundColor: '#6C9300', border: 'none', marginRight: '152px',
-            }}
-            onClick={() => {
-              setOpenModal(true);
-              setIsEdit(false);
-            }}
-          >
-            <div style={{
-              display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center',
-            }}
-            >
-              <img alt="add button" src="/assets/images/add_circle.png" style={{ width: '20px', marginRight: '8px' }} />
-              <p>Nova Flor</p>
+              <CleanButton onClick={searchHandler}>
+                <img
+                  src="/assets/images/search.png"
+                  alt="person"
+                />
+              </CleanButton>
             </div>
-          </Button>
+            <Button
+              style={{
+                width: '114px', backgroundColor: '#6C9300', border: 'none',
+              }}
+              textStyle={{
+                width: '114px',
+              }}
+              onClick={() => {
+                setOpenModal(true);
+                setIsEdit(false);
+              }}
+            >
+              <div style={{
+                display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center',
+              }}
+              >
+                <img alt="add button" src="/assets/images/add_circle.png" style={{ width: '20px', marginRight: '8px' }} />
+                <p>Nova Flor</p>
+              </div>
+            </Button>
+          </div>
         </div>
       </header>
       <div className="div_table-stock">
@@ -192,8 +197,8 @@ function Stock() {
                   <td>{flower.provider}</td>
                   <td>{new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(flower.price)}</td>
                   <td>
-                    <div className="indicator" style={{ backgroundColor: flower.quantity < 5 ? '#D83F51' : '#80AE00' }} />
-                    {flower.quantity}
+                    <span className="indicator" style={{ backgroundColor: flower?.quantity < 5 ? '#D83F51' : '#80AE00' }} />
+                    {flower?.quantity}
                   </td>
                   <td>
                     <div className="div_td_stock">
@@ -229,7 +234,13 @@ function Stock() {
                   </td>
                 </tr>
               );
-            }) : <p>Nenhuma flor cadastrada.</p>}
+            }) : (
+              <tr>
+                <td>
+                  <p>Nenhuma flor cadastrada.</p>
+                </td>
+              </tr>
+            )}
           </tbody>
         </table>
       </div>

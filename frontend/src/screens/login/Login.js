@@ -64,7 +64,7 @@ function Login() {
     <div className="login_div-conteiner">
       <div className="login_div-leftcontainer">
         <img
-          src="/assets/images/logo.png"
+          src="/assets/images/logo.webp"
           alt="logo"
           style={{
             marginBottom: '24px',

@@ -14,8 +14,24 @@
     margin-bottom: 14px;
     display: flex;
     flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.header_dashboard-stock-content {
+    width: 80%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
     justify-content: space-between;
     align-items: center;
+}
+
+.login_div-input.stock {
+    max-width: 332px;
+    width: 100%;
 }
 
 .header_dashboard-stock h1 {
@@ -27,7 +43,6 @@
     font-weight: 400;
     line-height: normal;
     border-left: 2px solid #9DAD90;
-    margin-left: 10%;
     padding-left: 16px;
     display: flex;
     justify-content: flex-start;
@@ -56,10 +71,13 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
 .div_table-stock {
     width: 80%;
+    min-width: 350px;
     height: 376px;
     border-radius: 10px;
     background-color: white;
@@ -68,7 +86,7 @@
     justify-content: flex-start;
     align-items: center;
     padding: 32px 25px 25px 32px;
-    margin-right: 24px;
+    overflow: hidden;
 }
 
 .div_table-stock header {
@@ -107,11 +125,12 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    overflow: hidden;
+    overflow-y: scroll;
 }
 
 .table_table-stock thead {
     width: 100%;
+    min-width: 560px;
     margin-bottom: 27px;
 }
 
@@ -139,7 +158,7 @@
 
 .table_table-stock tbody {
     width: 100%;
-    overflow-y: auto;
+    min-width: 560px;
 }
 
 .table_table-stock tbody td {
@@ -170,4 +189,35 @@
     flex-direction: row;
     align-items: center;
     width: 100%;
+}
+
+@media (max-width: 860px) {
+    .header_dashboard-stock-content {
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+    }
+
+    .header_dashboard-stock h1 {
+        font-size: 16px;
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+
+    .div_table-stock {
+        margin-right: 0px;
+        margin-bottom: 20px;
+    }
+
+    .table_table-stock {
+        overflow: scroll;
+    }
+
+    .table_table-stock th {
+        font-size: 12px;
+    }
+
+    .table_table-stock tbody td {
+        font-size: 12px;
+    }
 }

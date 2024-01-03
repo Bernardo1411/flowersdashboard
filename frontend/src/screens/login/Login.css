@@ -24,7 +24,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-image: url('/public/assets/images/background_flowers.png');
+    background-image: url('/public/assets/images/background_flowers.webp');
     background-size: cover;
 }
 
@@ -81,4 +81,29 @@ input::placeholder {
     font-style: normal;
     font-weight: 400;
     line-height: normal;
+}
+
+@media (max-width: 800px) {
+    .login_div-leftcontainer {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        z-index: 2;
+        background-color: #fdfff9b5;
+    }
+    
+    .login_div-rightcontainer {
+        width: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+        z-index: 1;
+    }
+    
+    .login_form {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
 }

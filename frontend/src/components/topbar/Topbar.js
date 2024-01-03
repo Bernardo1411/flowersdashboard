@@ -19,7 +19,7 @@ function Topbar(props) {
         <CleanButton onClick={onClick}>
           <img alt="menu" src="/assets/images/menu.png" style={{ marginRight: '16px' }} />
         </CleanButton>
-        <img alt="menu" src="/assets/images/logo_white.png" />
+        <img alt="menu" src="/assets/images/logo_white.webp" />
       </div>
       <div className="div_topbar-rightcontent">
         <img alt="menu" src="/assets/images/profile.png" style={{ marginRight: '10px', borderRadius: '100%' }} />
