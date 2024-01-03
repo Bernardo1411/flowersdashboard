@@ -36,7 +36,7 @@ function Dashboard() {
   return (
     <div className="div_dashboard-container">
       <Topbar onClick={() => setShowSidebar((state) => !state)} />
-      { showSideBar && <SideBar setShowSidebar={() => setShowSidebar(false)} /> }
+      <SideBar showSideBar={showSideBar} setShowSidebar={setShowSidebar} />
       <Routes>
         <Route path="stock" element={<Stock />} />
         <Route path="sell" element={<Sell />} />

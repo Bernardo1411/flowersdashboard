@@ -219,7 +219,18 @@ function Login() {
           </div>
         </form>
       </div>
-      <div className="login_div-rightcontainer" />
+      <div className="login_div-rightcontainer">
+        <img
+          src="/assets/images/background_flowers800.webp"
+          alt="Background flowers"
+          srcSet="
+            /assets/images/background_flowers800.webp 2000w,
+            /assets/images/background_flowers1200.webp 2400w,
+            /assets/images/background_flowers.webp 2300w
+          "
+          className="background-image"
+        />
+      </div>
     </div>
   );
 }

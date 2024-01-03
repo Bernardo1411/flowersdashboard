@@ -10,7 +10,7 @@
 
 .login_div-leftcontainer {
     width: 50%;
-    min-height: 100vh;
+    height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -19,13 +19,20 @@
 
 .login_div-rightcontainer {
     width: 50%;
-    min-height: 100vh;
+    height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-image: url('/public/assets/images/background_flowers.webp');
-    background-size: cover;
+    /* background-image: url('/public/assets/images/background_flowers.webp'); 
+    background-size: cover; */
+}
+
+.login_div-rightcontainer img {
+    width: 100%;
+    min-height: 100vh;
+    object-fit: cover;
+    object-position: center;
 }
 
 .login_form {

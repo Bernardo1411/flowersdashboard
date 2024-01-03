@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
 
 import CleanButton from '../cleanButton/CleanButton';
 
@@ -12,6 +13,11 @@ function Topbar(props) {
   const navigate = useNavigate();
 
   const [openLogout, setOpenLogout] = useState(false);
+
+  const variants = {
+    open: { y: 0, opacity: 1 },
+    closed: { y: '-25%', opacity: 0 },
+  };
 
   return (
     <div className="div-topbar">
@@ -26,9 +32,19 @@ function Topbar(props) {
         <CleanButton onClick={() => setOpenLogout((state) => !state)}>
           <img alt="menu" src="/assets/images/arrow_down.png" />
         </CleanButton>
-        {
+        <AnimatePresence initial={false}>
+          {
           openLogout && (
-          <div className="logout_div-topbar">
+          <motion.div
+            className="logout_div-topbar"
+            initial="closed"
+            animate="open"
+            exit="closed"
+            variants={variants}
+            transition={{
+              type: 'spring', stiffness: 50, damping: 10,
+            }}
+          >
             <CleanButton onClick={() => {
               sessionStorage.removeItem('token');
               navigate('/login');
@@ -36,9 +52,10 @@ function Topbar(props) {
             >
               Sair
             </CleanButton>
-          </div>
+          </motion.div>
           )
         }
+        </AnimatePresence>
       </div>
     </div>
   );

@@ -26,6 +26,7 @@ function MyModal(props) {
           flexShrink: 0,
           borderRadius: '16px',
           background: '#FFF',
+          maxWidth: '800px',
         },
         overlay: {
           backgroundColor: '#1F211E60',

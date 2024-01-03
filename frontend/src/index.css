@@ -23,3 +23,16 @@
     min-height: 100vh;
     height: auto;
   }
+
+  .ReactModal__Overlay {
+    transition: opacity 300ms ease-in-out;
+    opacity: 0;
+  }
+  
+  .ReactModal__Overlay--after-open {
+    opacity: 1;
+  }
+  
+  .ReactModal__Overlay--before-close {
+    opacity: 0;
+  }

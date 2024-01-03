@@ -15,12 +15,12 @@ function Button(props) {
       onClick={(e) => onClick(e)}
       style={style}
     >
-      <p
+      <span
         className="p_button"
         style={textStyle}
       >
         {children}
-      </p>
+      </span>
       {!!icon && icon}
     </button>
   );
